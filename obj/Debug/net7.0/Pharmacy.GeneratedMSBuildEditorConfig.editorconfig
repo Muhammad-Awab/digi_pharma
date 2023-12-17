@@ -1,0 +1,147 @@
+is_global = true
+build_property.TargetFramework = net7.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = Pharmacy
+build_property.RootNamespace = Pharmacy
+build_property.ProjectDir = D:\Visual Studio Projects\digi_Pharma - Copy\digipharma_v2\Pharmacy\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = D:\Visual Studio Projects\digi_Pharma - Copy\digipharma_v2\Pharmacy
+build_property._RazorSourceGeneratorDebug = 
+
+[D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Pages/About.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWJvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Pages/AddMedicine.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRkTWVkaWNpbmUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Pages/Billing.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQmlsbGluZy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Pages/Dashboard.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGFzaGJvYXJkLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Pages/Employee/Employee.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wbG95ZWVcRW1wbG95ZWUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Pages/Employee/EmployeeInfo.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wbG95ZWVcRW1wbG95ZWVJbmZvLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Pages/Employee/EmployeeRecord.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wbG95ZWVcRW1wbG95ZWVSZWNvcmQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Pages/Employee/Login.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wbG95ZWVcTG9naW4ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Pages/Generics/DeleteModal.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcR2VuZXJpY3NcRGVsZXRlTW9kYWwucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Pages/Generics/Modal.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcR2VuZXJpY3NcTW9kYWwucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Pages/Generics/TestComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcR2VuZXJpY3NcVGVzdENvbXBvbmVudC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Pages/Generics/UploadModal.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcR2VuZXJpY3NcVXBsb2FkTW9kYWwucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Pages/Inventory.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW52ZW50b3J5LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Pages/Login&Registration/Login.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW4mUmVnaXN0cmF0aW9uXExvZ2luLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Pages/Login&Registration/Registration.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW4mUmVnaXN0cmF0aW9uXFJlZ2lzdHJhdGlvbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Pages/MedicineRecord.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWVkaWNpbmVSZWNvcmQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Pages/MedicineShortage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWVkaWNpbmVTaG9ydGFnZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Pages/Pagination.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGFnaW5hdGlvbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Pages/Paging.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGFnaW5nLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Pages/PharmacyAccount.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGhhcm1hY3lBY2NvdW50LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Pages/PointOfSale.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUG9pbnRPZlNhbGUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Pages/SalesRecord.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2FsZXNSZWNvcmQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Shared/NavLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdkxheW91dC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Shared/SurveyPrompt.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-8ltdnzy7ju
+
+[D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-xvvbhzaaxi
+
+[D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Pages/_Host.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0hvc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 

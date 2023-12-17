@@ -1,0 +1,236 @@
+﻿@page "/medicinerecord/{Page:int}"
+@page "/medicinerecord"
+@using OfficeOpenXml;
+@using Pharmacy.Pages
+@using ClosedXML.Excel
+
+@inject IJSRuntime JS
+
+@attribute [Authorize(Roles = "Admin,User")]
+<div class="card">
+    @*    <div class="card-header">
+    <h3 class="card-title">DataTable with default features</h3>
+    </div> *@
+    <!-- /.card-header -->
+    <div class="card-body">
+        <div class="d-flex gap-2 mt-2 mb-3">
+            <input class="form-control w-50" type="text" @bind="searchTerm" @oninput="SearchTextChanged" id="myInput" placeholder="Search for names.." title="Type in a name">
+            <button type="button" class="btn btn-primary" @onclick="CreatePagingInfo">Search</button>
+            <button style="padding: 10px 20px; font-size: 16px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; margin-left: 380px;" onclick="ExportToExcel">
+                Export
+            </button>
+        </div>
+        <div class="table-responsive">
+            <table id="myTable" class="table table-bordered">
+                <thead class="table-primary">
+                    <tr>
+                        <th>pk_MedicineId</th>
+                        <th>Name</th>
+                        <th>UnitPrice</th>
+                        <th>Location</th>
+                        <th>Stock</th>
+                        <th>Actions</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (DataRow row in pagedData)
+                    {
+                        <tr>
+                            <td>@row["pk_MedId"]  </td>
+                            <td><i class="fas fa-pills ml-2" /> @row["Name"] </td>
+                            <td><i class="fa-solid fa-money-bill"></i> @row["UnitPrice"]</td>
+                            <td><i class="fa-solid fa-location-dot"></i> @row["Location"]</td>
+                            <td><i class="fas fa-flask ml-2"></i> @row["Stock"]  </td>
+                            <td>
+                                <a href="@($"/add_medicine_record/{row["pk_MedId"]}")"><i class="fa-solid fa-pen-to-square"></i></a>
+                              @if(@v[4]=="Admin"){
+                                <a @onclick="@(()=>OpenDeleteDialog(@row["pk_MedId"].ToString()))"><i class="fa-solid fa-trash"></i></a>
+                            }
+
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+
+                   @*  <tr>
+                        <td colspan="10">
+                            <Pagination PI="pagingInfo" PageClassesEnabled="true" PageClass="Paging" PageClassSelected="active"></Pagination>
+                        </td>
+                    </tr> *@
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <!-- /.card-body -->
+</div>
+
+
+
+@if (DeleteDialogOpen) {
+    <Pharmacy.Pages.Generics.DeleteModal Title="Are you sure?" FunDel="@(()=>OnDelete(@ID))"   Text="Do you want to delete" OnClose="@OnDeleteDialogClose"></Pharmacy.Pages.Generics.DeleteModal>
+}
+@code {
+    protected EntMedicineRecord? model { get; set; } = new EntMedicineRecord();
+    public bool DeleteDialogOpen { get; set; }
+    public string? ID { get; set; }
+    private async Task OnDeleteDialogClose(bool accepted)
+    {
+        DeleteDialogOpen = false;
+        await OnInitializedAsync();
+        StateHasChanged();
+
+    }
+    private void OpenDeleteDialog(string? Id)
+    {
+        DeleteDialogOpen = true;
+        ID = Id;
+        StateHasChanged();
+    }
+    private async Task OnDelete(string id)
+    {
+        SqlParameter[] sp =
+           {
+             new SqlParameter("@id",int.Parse(id)),
+
+    };
+        await DALCRUD.CRUD("SP_DeleteMedicineRecord", sp);
+        DeleteDialogOpen = false;
+        await OnInitializedAsync();
+
+    }
+    DataTable dt = new DataTable();
+    List<DataRow> allDataRows = new List<DataRow>();
+    string searchTerm = "";
+    IEnumerable<DataRow> pagedData = Enumerable.Empty<DataRow>();
+    [Parameter]
+    public int page { get; set; } = 1;
+    int pageSize = 15; // Change this to your desired page size
+
+    PagingInfo pagingInfo = new PagingInfo();
+
+    protected override async Task OnInitializedAsync()
+    {
+        SqlParameter[] sp =
+           {
+
+                new SqlParameter("@pharmacyId",v[0]),
+           };
+        dt = await DALCRUD.ReadDataSpecific("SP_GetMedicineRecord",sp);
+        allDataRows = dt.Rows.Cast<DataRow>().ToList();
+        CreatePagingInfo();
+    }
+    public void ExportToExcel()
+    {
+        var spreadsheetBytes = DataRowToBytes();
+        SaveSpreadSheetBytes(spreadsheetBytes);
+    }
+
+    private void SaveSpreadSheetBytes(byte[] bytes)
+    {
+        File.WriteAllBytes(path: "./wwwroot/exports/export.xlsx", bytes);
+    }
+
+    private byte[] DataRowToBytes()
+    {
+        using var workbook = new XLWorkbook();
+        var dataTable = new DataTable();
+        dataTable.Columns.Add(new DataColumn("pk_MedId"));
+        dataTable.Columns.Add(new DataColumn("Name"));
+        dataTable.Columns.Add(new DataColumn("UnitPrice"));
+        dataTable.Columns.Add(new DataColumn("Location"));
+        dataTable.Columns.Add(new DataColumn("Stock"));
+
+        allDataRows.ForEach(row =>
+        {
+            var newRow = dataTable.NewRow();
+            newRow["pk_MedId"] = row["pk_MedId"];
+            newRow["Name"] = row["Name"];
+            newRow["UnitPrice"] = row["UnitPrice"];
+            newRow["Location"] = row["Location"];
+            newRow["Stock"] = row["Stock"];
+            dataTable.Rows.Add(newRow);
+        });
+        var worksheet = workbook.Worksheets.Add(dataTable, sheetName: "Products");
+        using var memoryStream = new MemoryStream();
+        workbook.SaveAs(memoryStream);
+        return memoryStream.ToArray();
+    }
+
+    private async Task DownloadFileFromURL()
+    {
+        var fileName = "export.xlsx";
+        var fileURL = Path.Combine("https://localhost:5241", "files", fileName);
+
+        await JS.InvokeVoidAsync("triggerFileDownload", fileName, fileURL);
+    }
+    protected override void OnParametersSet()
+    {
+        CreatePagingInfo();
+    }
+    public void CreatePagingInfo()
+    {
+        pagingInfo.CurrentPage = page;
+        pagingInfo.TotalItems = allDataRows.Count;
+        pagingInfo.ItemsPerPage = pageSize;
+
+        // Apply search filter
+        var filteredData = allDataRows.Where(row =>
+      row["Name"].ToString()!.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+      row["Location"].ToString()!.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)).ToList();
+
+        pagingInfo.TotalItems = filteredData.Count;
+
+        var skip = pageSize * (page - 1);
+
+        if (searchTerm != "")
+        {
+            pagedData = filteredData;
+        }
+        else
+        {
+            pagedData = filteredData.Skip(skip).Take(pageSize);
+        }
+       
+    }
+
+    public void PageChanged(int newPage)
+    {
+        page = newPage;
+        CreatePagingInfo();
+
+    }
+
+
+
+    private void SearchTextChanged(ChangeEventArgs e)
+    {
+        searchTerm = e.Value.ToString();
+        CreatePagingInfo();
+        // You can add additional logic here if needed
+    }
+
+
+
+    public string[] v { get; set; } = { "Guest", "Guest" };
+
+
+    public string? value1 { get; set; }
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticatestate { get; set; }
+    protected override void OnInitialized()
+    {
+        DisplayGreeting();
+
+    }
+    private async Task DisplayGreeting()
+    {
+        var authState = await authenticatestate;
+        value1 = $"{authState.User.Identity.Name}";
+        v = value1.Split(',');
+        StateHasChanged();
+    }
+}

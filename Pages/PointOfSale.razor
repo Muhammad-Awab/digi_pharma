@@ -1,0 +1,437 @@
+﻿@page "/pointofsale/{Page:int}"
+@page "/pointofsale"
+@attribute [Authorize(Roles = "Admin,User")]
+<div class="card">
+
+
+    <div class="card-body">
+
+        <div class="d-flex gap-2">
+
+            <input class="form-control w-50" type="text" @bind="searchTerm" @oninput="SearchTextChanged" id="myInput" placeholder="Search for names.." title="Type in a name">
+            <!--<button type="button" class="btn btn-primary" @onclick="CreatePagingInfo">Search</button>-->
+        </div>
+        <div class="row">
+            <div class="table-responsive col-md-7">
+
+                <table id="myTable" class="table table-hover">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>pk_MedicineId</th>
+                            <th>Name</th>
+                            <th>UnitPrice</th>
+                            <th>Location</th>
+                            <th>Stock</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (DataRow row in pagedData)
+                        {
+                            @if ((int)@row["Stock"] == 0)
+                            {
+                                <tr disabled @onclick="@(()=>OpenQuantityDialog((int)@row["pk_MedId"],@row["Name"].ToString(),@row["UnitPrice"].ToString()))">
+                                    <td style="background-color:mediumvioletred;">@row["pk_MedId"]</td>
+                                    <td style="background-color:orangered;">@row["Name"]</td>
+                                    <td style="background-color:red;">@row["UnitPrice"]</td>
+                                    <td style="background-color:red;">@row["Location"]</td>
+                                    <td style="background-color:red;">@row["Stock"]</td>
+
+                                </tr>
+                            }
+                            else
+                            {
+                                <tr @onclick="@(()=>OpenQuantityDialog((int)@row["pk_MedId"],@row["Name"].ToString(),@row["UnitPrice"].ToString()))">
+                                    <td>@row["pk_MedId"]</td>
+                                    <td>@row["Name"]</td>
+                                    <td>@row["UnitPrice"]</td>
+                                    <td>@row["Location"]</td>
+                                    <td>@row["Stock"]</td>
+
+                                </tr>
+                            }
+
+                        }
+                    </tbody>
+                    <tfoot>
+
+                        <tr>
+                            <td colspan="10">
+                                <Pagination PI="pagingInfo" PageClassesEnabled="true" PageClass="Paging" PageClassSelected="active"></Pagination>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+            </div>
+            <div class="table-responsive col-md-5">
+                <h2 class="sub-header">Billing</h2>
+                <table id="myTable" class="table table-bordered ">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>POS_Id</th>
+                            <th>Medicine Name</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        @foreach (var item in modelList)
+                        {
+                            <tr>
+                                <td>@item.pk_POSId</td>
+                                <td>@item.MedicineName</td>
+                                <td>@item.Quantity</td>
+                                <td>@item.Medicineprice</td>
+                                <td><button class="btn btn-danger" @onclick="@(()=>DeleteRecord(item.fk_MedId))">Delete</button></td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td class="fw-bold ml-5">Total</td>
+                            <td class="fw-bold">@MedicineTotalQuantity </td>
+                            <td class="fw-bold">@MedicineTotalprice </td>
+                        </tr>
+
+
+
+                        <button class="btn btn-success w-100 mt-4" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Checkout</button>
+                    </tfoot>
+                </table>
+
+            </div>
+        </div>
+    </div>
+    <!-- /.card-body -->
+</div>
+@if (DeleteDialogOpen)
+{
+    <Pharmacy.Pages.Generics.Modal Title="Select the Quantity" MedicineName="@MedicineName" sendQuantity="@OnSell" OnClose="@OnDeleteDialogClose"></Pharmacy.Pages.Generics.Modal>
+}
+
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+        <h5 id="offcanvasRightLabel">CheckOut</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <h3>Billing ID : @BillingId</h3>
+        <table id="myTable" class="table table-bordered ">
+            <thead class="table-primary">
+                <tr>
+
+                    <th>Medicine Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                @foreach (var item in modelList)
+                {
+                    <tr>
+
+                        <td>@item.MedicineName</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.Medicineprice</td>
+
+                    </tr>
+                }
+            </tbody>
+
+            <tr>
+                <td class="fw-bold">Total</td>
+                <td class="fw-bold">@MedicineTotalQuantity </td>
+                <td class="fw-bold">@MedicineTotalprice </td>
+            </tr>
+
+
+
+        </table>
+
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Discount Price (Rs)</label>
+            <input type="text" class="form-control" @bind="DiscountPrice" @onclick="calculatediscountprice" id="exampleFormControlInput1" placeholder="Price ">
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Discount Percentage(%)</label>
+            <input class="form-control" @bind="DiscountPerc" @onclick="calculatediscountpercentage" id="exampleFormControlTextarea1" placeholder="Percentage"   />
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Remarks</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        </div>
+        <div class="mb-3">
+            <div class="d-flex gap-5">
+                <p class="fs-3 fw-bold">Grand Total :</p>
+                <p class="fs-3 fw-bold ml-3">@MedicineGrandTotal</p>
+            </div>
+
+        </div>
+
+        <button @onclick="Checkout" data-bs-dismiss="offcanvas" class="btn btn-primary"> Sell</button>
+
+    </div>
+</div>
+
+
+
+
+
+@code {
+    // protected EntMedicineRecord? model { get; set; } = new EntMedicineRecord();
+    private List<EntPointOfSale>? modelList { get; set; } = new List<EntPointOfSale>();
+    // protected EntBilling? model_point_of_sale { get; set; }
+    private EntBilling? pointOfSale { get; set; } = new EntBilling();
+    // public bool check = true;
+    public int ID { get; set; }
+    public string? MedicineName { get; set; }
+    public string? Quantity { get; set; }
+    public decimal Medicineprice { get; set; }
+    public decimal MedicineTotalprice { get; set; }
+    public decimal MedicineGrandTotal { get; set; }
+    public decimal MedicineTotalQuantity { get; set; }
+    public int DiscountPrice { get; set; } 
+    public int DiscountPerc { get; set; }
+    public int POSId { get; set; } 
+
+
+    public int BillingId { get; set; }
+    public bool DeleteDialogOpen { get; set; }
+
+
+    private async Task Checkout()
+    {
+        foreach (var data in modelList)
+        {
+            SqlParameter[] parameters = new SqlParameter[]
+             {
+                 new SqlParameter("@pk_POSId",data.pk_POSId),
+                 new SqlParameter("@pharmacyId",v[0]),
+                 new SqlParameter("@fk_BillingId",data.fk_BillingId),
+                 new SqlParameter("@fk_MedId",data.fk_MedId),
+                 new SqlParameter("@Quantity",data.Quantity),
+             };
+            await DALCRUD.CRUD("SP_checkout", parameters);
+
+
+            SqlParameter[] sp =
+          {
+            new SqlParameter("@medId",data.fk_MedId),
+            new SqlParameter("@quantity", data.Quantity),
+    };
+            await DALCRUD.CRUD("SP_SellMedicine", sp);
+
+        }
+
+        AddPointOfSale(BillingId, MedicineTotalprice);
+
+
+
+
+        modelList.Clear();
+        MedicineTotalprice = 0;
+        MedicineTotalQuantity = 0;
+        POSId += 1;
+        Random rnd = new Random();
+        BillingId = rnd.Next();
+
+
+        StateHasChanged();
+        await OnInitializedAsync();
+
+
+    }
+
+
+    public async Task AddPointOfSale(int BillingId, decimal MedicineTotalprice)
+    {
+        SqlParameter[] parameters = new SqlParameter[]
+           {
+                 new SqlParameter("@pk_BillingId",BillingId),
+
+                 new SqlParameter("@pharmacyId",@v[0]),
+                 new SqlParameter("@SellerId",1),
+                 new SqlParameter("@TotalPrice",MedicineTotalprice),
+                 new SqlParameter("@Discount",DiscountPrice),
+                 new SqlParameter("@DiscountPerc",DiscountPerc),
+                 new SqlParameter("@GrandTotal",MedicineGrandTotal),
+           };
+        await DALCRUD.CRUD("SP_checkoutBilling", parameters);
+    }
+    private void OnDeleteDialogClose(bool accepted)
+    {
+        DeleteDialogOpen = false;
+
+        StateHasChanged();
+
+    }
+    private void DeleteRecord(int id)
+    {
+        modelList.RemoveAt(modelList.FindIndex(x => x.fk_MedId == id));
+    }
+    private void OpenQuantityDialog(int Id, string medicineName, string price)
+    {
+        MedicineName = medicineName;
+        Medicineprice = decimal.Parse(price);
+        DeleteDialogOpen = true;
+        ID = Id;
+
+        StateHasChanged();
+    }
+    private async Task OnSell(string quantity)
+    {
+
+        EntPointOfSale existingMedicine = modelList.FirstOrDefault(m => m.fk_MedId == ID);
+
+        if (existingMedicine != null)
+        {
+            // If the medicine exists in the list, update its quantity and price
+            existingMedicine.Quantity += int.Parse(quantity);
+            MedicineTotalQuantity += int.Parse(quantity);
+            MedicineTotalprice += existingMedicine.Medicineprice;
+            existingMedicine.Medicineprice = Medicineprice * existingMedicine.Quantity;
+            // Update the price or perform actions based on the new price
+
+            // Other actions you need to perform after updating the existing entry
+
+            // For example, refreshing the UI
+            DeleteDialogOpen = false;
+            StateHasChanged();
+        }
+        else
+        {
+            // If the medicine is not in the list, create a new entry
+            EntPointOfSale newMedicine = new EntPointOfSale
+                {
+                    fk_MedId = ID,
+                    MedicineName = MedicineName,
+                    Quantity = int.Parse(quantity),
+                    Medicineprice = Medicineprice * decimal.Parse(quantity),
+                    pk_POSId = POSId,
+                    fk_BillingId = BillingId
+                };
+            MedicineTotalprice += newMedicine.Medicineprice;
+            MedicineTotalQuantity += newMedicine.Quantity;
+
+            modelList.Add(newMedicine);
+
+            // Other actions you need to perform after adding a new entry
+
+            // For example, refreshing the UI
+            DeleteDialogOpen = false;
+
+            StateHasChanged();
+        }
+
+
+
+    }
+
+
+    DataTable dt = new DataTable();
+    List<DataRow> allDataRows = new List<DataRow>();
+    string searchTerm = "";
+    IEnumerable<DataRow> pagedData = Enumerable.Empty<DataRow>();
+    [Parameter]
+    public int page { get; set; } = 1;
+    int pageSize = 14; // Change this to your desired page size
+
+    PagingInfo pagingInfo = new PagingInfo();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Random rnd = new Random();
+        BillingId = rnd.Next();
+        SqlParameter[] sp =
+           {
+
+                new SqlParameter("@pharmacyId",v[0]),
+       };
+        dt = await DALCRUD.ReadDataSpecific("SP_GetMedicineRecord", sp);
+        allDataRows = dt.Rows.Cast<DataRow>().ToList();
+        CreatePagingInfo();
+    }
+    protected override void OnParametersSet()
+    {
+        CreatePagingInfo();
+    }
+    public void CreatePagingInfo()
+    {
+        pagingInfo.CurrentPage = page;
+        pagingInfo.TotalItems = allDataRows.Count;
+        pagingInfo.ItemsPerPage = pageSize;
+
+        // Apply search filter
+        var filteredData = allDataRows.Where(row =>
+          row["Name"].ToString()!.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+          row["Location"].ToString()!.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)).ToList();
+
+        pagingInfo.TotalItems = filteredData.Count;
+
+        var skip = pageSize * (page - 1);
+
+        if (searchTerm != "")
+        {
+            pagedData = filteredData;
+        }
+        else
+        {
+            pagedData = filteredData.Skip(skip).Take(pageSize);
+        }
+        Console.WriteLine($"Current Page: {page}, Total Items: {pagingInfo.TotalItems}, Page Size: {pageSize}, Skip: {skip}");
+    }
+
+    public void PageChanged(int newPage)
+    {
+        page = newPage;
+        CreatePagingInfo();
+
+    }
+
+
+    private void SearchTextChanged(ChangeEventArgs e)
+    {
+        searchTerm = e.Value.ToString();
+        CreatePagingInfo();
+        // You can add additional logic here if needed
+    }
+
+    public void calculatediscountprice()
+    {
+        MedicineGrandTotal = MedicineTotalprice - DiscountPrice;
+    }
+
+
+    public void calculatediscountpercentage()
+    {
+        int a = 100;
+        DiscountPerc = (DiscountPerc / a);
+        DiscountPerc = (int)MedicineTotalprice * DiscountPerc;
+        MedicineGrandTotal = MedicineTotalprice - DiscountPerc;
+    }
+
+
+    public string[] v { get; set; } = { "Guest", "Guest" };
+
+
+    public string? value1 { get; set; }
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticatestate { get; set; }
+    protected override void OnInitialized()
+    {
+        DisplayGreeting();
+
+    }
+    private async Task DisplayGreeting()
+    {
+        var authState = await authenticatestate;
+        value1 = $"{authState.User.Identity.Name}";
+        v = value1.Split(',');
+        StateHasChanged();
+    }
+}

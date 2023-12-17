@@ -1,0 +1,94 @@
+﻿@page "/registration"
+@layout NavLayout
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row justify-content-center pt-5">
+            <!-- left column -->
+            <div class="col-md-6">
+                <!-- general form elements -->
+                <div class="card card-primary">
+                    <div class="card-header text-center">
+                        <h3>Pharmacy Registration</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form>
+                        <div class="card-body no form-control-border">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Pharmacy Name</label>
+                                <input type="text" class="form-control" @bind="model!.PharmacyName" placeholder="Enter Pharmacy Name">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Pharmacy Address</label>
+                                <input type="text" class="form-control" @bind="model!.PharmacyAddress" placeholder="Enter Address">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">City</label>
+                                <input type="text" class="form-control" @bind="model!.City" placeholder="Enter City">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Admin Name</label>
+                                <input type="text" @bind="model.AdminName" class="form-control" placeholder="Enter Owner Name">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">PhoneNo</label>
+                                <input type="tel" @bind="model.AdminPhoneNo" class="form-control" placeholder="Enter AdminPhoneNo">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Admin Address</label>
+                                <input type="text" class="form-control" @bind="model.Address" placeholder="Enter Address">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Username</label>
+                                <input type="text" class="form-control" @bind="model.Username" placeholder="Enter Username">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Password</label>
+                                <input type="text" class="form-control" @bind="model.Password" placeholder="Enter Password">
+                            </div>
+
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                            <button @onclick="SaveRegistrationForm" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+
+
+
+@code {
+    protected EntRegistration model { get; set; } = new EntRegistration();
+    private int pharmacyId;
+    private async Task SaveRegistrationForm(){
+        Random rnd = new Random();
+        pharmacyId = rnd.Next();
+    SqlParameter[] sp =
+         {
+
+             new SqlParameter("@pk_PharmacyId",pharmacyId),
+             new SqlParameter("@PharmacyName",model.PharmacyName),
+            new SqlParameter("@PharmacyAddress",model!.PharmacyAddress),
+            new SqlParameter("@City", model.City),
+            new SqlParameter("@AdminName", model.AdminName),
+            new SqlParameter("@AdminPhoneNo", model.AdminPhoneNo),
+            new SqlParameter("@Address", model.Address),
+            new SqlParameter("@Username", model.Username),
+            new SqlParameter("@Password",model.Password),
+            new SqlParameter("@Role","Admin"),
+    };
+        await DALCRUD.CRUD("SP_SaveRegistrationForm", sp);
+        nm.NavigateTo("/login", forceLoad: true);
+    }
+
+}

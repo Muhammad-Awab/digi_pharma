@@ -1,0 +1,280 @@
+﻿@inject NavigationManager nm
+@inject AuthenticationStateProvider authStateProvider
+@inherits LayoutComponentBase
+@attribute [Authorize(Roles = "User,Admin")]
+
+<PageTitle>Dashboard</PageTitle>
+
+<div class="wrapper">
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="/dashboard" class="nav-link">Home</a>
+            </li>
+           
+        </ul>
+
+        <!-- Right navbar links -->
+        <ul class="navbar-nav ml-auto">
+
+            <h5 class="mx-3 mt-2">@v[1]</h5>
+            <AuthorizeView Roles="Admin,User">
+                <Authorized>
+                    <NavLink class="btn btn-outline-primary" @onclick="logout" href="javascript:void(0)" Match="NavLinkMatch.All">
+                        <span class="oi oi-info" aria-hidden="true"></span> Logout
+                    </NavLink>
+                </Authorized>
+
+
+            </AuthorizeView>
+        </ul>
+    </nav>
+    <!-- /.navbar -->
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <a href="@($"/account/{@v[0]}")" class="brand-link" style="text-decoration:none;">
+            <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light">@v[2]</span>
+        </a>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Sidebar user panel (optional) -->
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+                    @if (v[4] == "User")
+                    {
+                        <img src="@v[3]" class="img-circle elevation-2" alt="User Image">
+
+                    }
+                    else
+                    {
+                        <img src="dist/img/Awab.jpeg" class="img-circle elevation-2" alt="User Image">
+                    }
+                </div>
+                <div class="info">
+                    <a href="#" style="text-decoration:none;" class="d-block">@v[1]</a>
+                </div>
+
+            </div>
+
+            <!-- SidebarSearch Form -->
+            <div class="form-inline">
+                <div class="input-group" data-widget="sidebar-search">
+                    <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                    <div class="input-group-append">
+                        <button class="btn btn-sidebar">
+                            <i class="fas fa-search fa-fw"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <!-- Add icons to the links using the .nav-icon class
+                         with font-awesome or any other icon font library -->
+                    <AuthorizeView Roles="Admin,User">
+                        <Authorized>
+                            <li class="nav-item">
+                                <a href="/dashboard" class="nav-link">
+                                    <i class="nav-icon fas fa-th"></i>
+                                    <p>
+                                        DashBoard
+                                        <span class="right badge badge-danger">New</span>
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item menu-open">
+                                <a href="/dashboard" class="nav-link active">
+                                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                                    <p>
+                                        Inventory
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="/inventory" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Visit Inventory</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/medicinerecord" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>List Of Medicines</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/add_medicine_record" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Medicine Record</p>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="pointofsale" class="nav-link">
+                                    <i class="nav-icon fas fa-th"></i>
+                                    <p>
+                                        Point Of Sale
+                                        <span class="right badge badge-danger">New</span>
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/billing" class="nav-link">
+                                    <i class="nav-icon fas fa-th"></i>
+                                    <p>
+                                        Billing
+                                        <span class="right badge badge-danger">New</span>
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="aboutus" class="nav-link">
+                                    <i class="nav-icon fas fa-th"></i>
+                                    <p>
+                                        About Us
+                                        <span class="right badge badge-danger">New</span>
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="salesrecord" class="nav-link">
+                                    <i class="nav-icon fas fa-th"></i>
+                                    <p>
+                                        Sales Report
+                                        <span class="right badge badge-danger">New</span>
+                                    </p>
+                                </a>
+                            </li>
+
+
+                        </Authorized>
+
+                    </AuthorizeView>
+
+                    <AuthorizeView Roles="Admin">
+                        <Authorized>
+                            <li class="nav-item menu-open">
+                                <a href="/employee" class="nav-link active">
+                                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                                    <p>
+                                        Employees
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="/employee" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>EmployeeInfo</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/employeeinfo" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Registered Employees</p>
+                                        </a>
+                                    </li>
+
+
+                                </ul>
+                            </li>
+                        </Authorized>
+
+                    </AuthorizeView>
+
+
+                </ul>
+            </nav>
+            <!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+
+        @Body
+    </div>
+    <!-- /.content-wrapper -->
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+    <!-- Main Footer -->
+    <footer class="main-footer">
+        <strong>Copyright &copy; 2023-2025 DigiPharma</strong>
+        All rights reserved.
+        <div class="float-right d-none d-sm-inline-block">
+            <b>Version</b> 3.2.0
+        </div>
+    </footer>
+</div>
+
+
+@code {
+
+    private async Task logout()
+    {
+        var customAuthStateProvider = (CustomAuthenticationStateProvider)authStateProvider;
+        await customAuthStateProvider.UpdateAuthenticationState(null);
+        nm.NavigateTo("/login", forceLoad: true);
+
+    }
+    public string[] v = new string[5] { "Guest", "Guest", "Pharmacy", "Guest", "Guest", };
+
+
+    public string? value1 { get; set; }
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticatestate { get; set; }
+    protected override void OnInitialized()
+    {
+        DisplayGreeting();
+
+    }
+    private async Task DisplayGreeting()
+    {
+        try
+        {
+            var authState = await authenticatestate;
+
+            // Check if the user identity exists and is not null or empty
+            if (authState.User?.Identity?.Name != null && !string.IsNullOrEmpty(authState.User.Identity.Name))
+            {
+                value1 = authState.User.Identity.Name;
+                v = value1.Split(',');
+            }
+            else
+            {
+                // Handle the case where the user identity is not available
+                // You can set default values or handle it based on your application logic
+                value1 = "DefaultName";
+                v = new string[] { "Guest", "Guest", "Pharmacy", "Guest", "Guest" };
+            }
+
+            StateHasChanged();
+        }
+        catch
+        {
+            // Handle exceptions, for instance, redirect to the login page
+            nm.NavigateTo("/login", forceLoad: true);
+        }
+    }
+
+
+
+}

@@ -160,12 +160,18 @@
         return memoryStream.ToArray();
     }
 
-    private async Task DownloadFileFromURL()
+   private async Task ExportToExcel()
     {
-        var fileName = "export.xlsx";
-        var fileURL = Path.Combine("https://localhost:5241", "files", fileName);
+        var spreadsheetBytes = DataRowToBytes();
+        SaveSpreadSheetBytes(spreadsheetBytes);
 
-        await JS.InvokeVoidAsync("triggerFileDownload", fileName, fileURL);
+        // Trigger the download using JavaScript
+        await JS.InvokeVoidAsync("downloadFile", "/export.xlsx");
+    }
+
+    private void SaveSpreadSheetBytes(byte[] bytes)
+    {
+        File.WriteAllBytes(path: "./wwwroot/export.xlsx", bytes);
     }
     protected override void OnParametersSet()
     {
@@ -233,4 +239,18 @@
         v = value1.Split(',');
         StateHasChanged();
     }
+    private string downloadScript = @"
+        window.downloadFile = function (filePath) {
+            var anchor = document.createElement('a');
+            anchor.href = filePath;
+            anchor.download = filePath.substring(filePath.lastIndexOf('/') + 1);
+            document.body.appendChild(anchor);
+            anchor.click();
+            document.body.removeChild(anchor);
+        };
+    ";
 }
+
+    <script>
+    @((MarkupString)downloadScript)
+</script>

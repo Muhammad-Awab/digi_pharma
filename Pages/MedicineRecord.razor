@@ -16,12 +16,12 @@
         <div class="d-flex gap-2 mt-2 mb-3">
             <input class="form-control w-50" type="text" @bind="searchTerm" @oninput="SearchTextChanged" id="myInput" placeholder="Search for names.." title="Type in a name">
             <button type="button" class="btn btn-primary" @onclick="CreatePagingInfo">Search</button>
-            <button style=" font-size: 16px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s;" onclick="ExportToExcel">
+            <button style=" font-size: 16px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s;" @onclick="ExportToExcel">
                 Export
             </button>
         </div>
         <div class="table-responsive">
-            <table id="myTable" class="table table-bordered table-responsive">
+            <table id="myTable" class="table table-bordered">
                 <thead class="table-primary">
                     <tr>
                         <th>pk_MedicineId</th>
@@ -123,15 +123,18 @@
         allDataRows = dt.Rows.Cast<DataRow>().ToList();
         CreatePagingInfo();
     }
-    public void ExportToExcel()
+private async Task ExportToExcel()
     {
         var spreadsheetBytes = DataRowToBytes();
         SaveSpreadSheetBytes(spreadsheetBytes);
+
+        // Trigger the download using JavaScript
+        await JS.InvokeVoidAsync("downloadFile", "/export.xlsx");
     }
 
     private void SaveSpreadSheetBytes(byte[] bytes)
     {
-        File.WriteAllBytes(path: "./wwwroot/exports/export.xlsx", bytes);
+        File.WriteAllBytes(path: "./wwwroot/export.xlsx", bytes);
     }
 
     private byte[] DataRowToBytes()
@@ -160,18 +163,12 @@
         return memoryStream.ToArray();
     }
 
-   private async Task ExportToExcel()
+    private async Task DownloadFileFromURL()
     {
-        var spreadsheetBytes = DataRowToBytes();
-        SaveSpreadSheetBytes(spreadsheetBytes);
+        var fileName = "export.xlsx";
+        var fileURL = Path.Combine("https://localhost:5241", "files", fileName);
 
-        // Trigger the download using JavaScript
-        await JS.InvokeVoidAsync("downloadFile", "/export.xlsx");
-    }
-
-    private void SaveSpreadSheetBytes(byte[] bytes)
-    {
-        File.WriteAllBytes(path: "./wwwroot/export.xlsx", bytes);
+        await JS.InvokeVoidAsync("triggerFileDownload", fileName, fileURL);
     }
     protected override void OnParametersSet()
     {
@@ -251,6 +248,6 @@
     ";
 }
 
-    <script>
+        <script>
     @((MarkupString)downloadScript)
 </script>

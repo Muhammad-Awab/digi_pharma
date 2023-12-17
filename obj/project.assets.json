@@ -2197,30 +2197,6 @@
         "runtime": {
           "lib/netstandard1.6/XLParser.dll": {}
         }
-      },
-      "ClassLibraryDAL/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v7.0",
-        "dependencies": {
-          "ClassLibraryEnt": "1.0.0",
-          "System.Data.SqlClient": "4.8.5"
-        },
-        "compile": {
-          "bin/placeholder/ClassLibraryDAL.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/ClassLibraryDAL.dll": {}
-        }
-      },
-      "ClassLibraryEnt/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v7.0",
-        "compile": {
-          "bin/placeholder/ClassLibraryEnt.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/ClassLibraryEnt.dll": {}
-        }
       }
     }
   },
@@ -7040,16 +7016,6 @@
         "xlparser.1.5.2.nupkg.sha512",
         "xlparser.nuspec"
       ]
-    },
-    "ClassLibraryDAL/1.0.0": {
-      "type": "project",
-      "path": "../ClassLibraryDAL/ClassLibraryDAL.csproj",
-      "msbuildProject": "../ClassLibraryDAL/ClassLibraryDAL.csproj"
-    },
-    "ClassLibraryEnt/1.0.0": {
-      "type": "project",
-      "path": "../ClassLibraryEnt/ClassLibraryEnt.csproj",
-      "msbuildProject": "../ClassLibraryEnt/ClassLibraryEnt.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -7057,8 +7023,6 @@
       "AWSSDK.S3 >= 3.7.304.9",
       "Blazored.Toast >= 4.1.0",
       "ChartJs.Blazor.Fork >= 2.0.2",
-      "ClassLibraryDAL >= 1.0.0",
-      "ClassLibraryEnt >= 1.0.0",
       "ClosedXML >= 0.102.1",
       "EPPlus >= 7.0.4",
       "System.Data.SqlClient >= 4.8.5"
@@ -7096,14 +7060,7 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "projectReferences": {
-            "D:\\Visual Studio Projects\\digi_Pharma - Copy\\digipharma_v2\\ClassLibraryDAL\\ClassLibraryDAL.csproj": {
-              "projectPath": "D:\\Visual Studio Projects\\digi_Pharma - Copy\\digipharma_v2\\ClassLibraryDAL\\ClassLibraryDAL.csproj"
-            },
-            "D:\\Visual Studio Projects\\digi_Pharma - Copy\\digipharma_v2\\ClassLibraryEnt\\ClassLibraryEnt.csproj": {
-              "projectPath": "D:\\Visual Studio Projects\\digi_Pharma - Copy\\digipharma_v2\\ClassLibraryEnt\\ClassLibraryEnt.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {

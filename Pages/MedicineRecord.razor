@@ -16,12 +16,12 @@
         <div class="d-flex gap-2 mt-2 mb-3">
             <input class="form-control w-50" type="text" @bind="searchTerm" @oninput="SearchTextChanged" id="myInput" placeholder="Search for names.." title="Type in a name">
             <button type="button" class="btn btn-primary" @onclick="CreatePagingInfo">Search</button>
-            <button style="padding: 10px 20px; font-size: 16px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; margin-left: 380px;" onclick="ExportToExcel">
+            <button style=" font-size: 16px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s;" onclick="ExportToExcel">
                 Export
             </button>
         </div>
         <div class="table-responsive">
-            <table id="myTable" class="table table-bordered">
+            <table id="myTable" class="table table-bordered table-responsive">
                 <thead class="table-primary">
                     <tr>
                         <th>pk_MedicineId</th>

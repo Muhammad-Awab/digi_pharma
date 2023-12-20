@@ -103,7 +103,7 @@ namespace ClassLibraryDAL
 
         }
 
-        public static EntBilling GetBillingRecordById(int BillingId)
+        public static EntBilling GetBillingRecordById(int BillingId, int fk_PharmacyId)
         {
             EntBilling ee = new EntBilling();
 
@@ -112,6 +112,7 @@ namespace ClassLibraryDAL
             con.Open();
             SqlCommand cmd = new SqlCommand("SP_GetBillingRecordById", con);
             cmd.Parameters.AddWithValue("@pk_BillingId", BillingId);
+            cmd.Parameters.AddWithValue("@fk_PharmacyId", fk_PharmacyId);
             cmd.CommandType = CommandType.StoredProcedure;
             SqlDataReader sdr = cmd.ExecuteReader();
 
@@ -145,14 +146,14 @@ namespace ClassLibraryDAL
                     ee.MedCounts = int.Parse(sdr["Medicine_Record"].ToString());
                     ee.SalesCounts = int.Parse(sdr["Billing_Record"].ToString());
                     ee.UserCounts = int.Parse(sdr["User_Record"].ToString());
-                  
+
                 }
                 con.Close();
 
             }
             catch (Exception ex)
             {
-               Console.WriteLine($"Exception Occurred: {ex.Message}");
+                Console.WriteLine($"Exception Occurred: {ex.Message}");
             }
             return ee;
         }

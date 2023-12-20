@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "myrZpQb9YM5reWhNBcefYkouvmvEqT3BymUw118w1FM=",
+  "Hash": "PwCjqEtwlRX7S9G4B/XA2pUmjpBeSGTMo0ZyICv1jAk=",
   "Source": "Pharmacy",
   "BasePath": "_content/Pharmacy",
   "Mode": "Default",
@@ -910,6 +910,25 @@
       "OriginalItemSpec": "wwwroot\\dist\\img\\Awab.jpeg"
     },
     {
+      "Identity": "D:\\Visual Studio Projects\\digi_Pharma\\pharmay_v1\\digipharma_v2\\Pharmacy\\wwwroot\\dist\\img\\favicon.ico",
+      "SourceId": "Pharmacy",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Visual Studio Projects\\digi_Pharma\\pharmay_v1\\digipharma_v2\\Pharmacy\\wwwroot\\",
+      "BasePath": "_content/Pharmacy",
+      "RelativePath": "dist/img/favicon.ico",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\dist\\img\\favicon.ico"
+    },
+    {
       "Identity": "D:\\Visual Studio Projects\\digi_Pharma\\pharmay_v1\\digipharma_v2\\Pharmacy\\wwwroot\\dist\\img\\logo.png",
       "SourceId": "Pharmacy",
       "SourceType": "Discovered",
@@ -1136,6 +1155,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\dist\\js\\pages\\dashboard3.js"
+    },
+    {
+      "Identity": "D:\\Visual Studio Projects\\digi_Pharma\\pharmay_v1\\digipharma_v2\\Pharmacy\\wwwroot\\export.xlsx",
+      "SourceId": "Pharmacy",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Visual Studio Projects\\digi_Pharma\\pharmay_v1\\digipharma_v2\\Pharmacy\\wwwroot\\",
+      "BasePath": "_content/Pharmacy",
+      "RelativePath": "export.xlsx",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\export.xlsx"
     },
     {
       "Identity": "D:\\Visual Studio Projects\\digi_Pharma\\pharmay_v1\\digipharma_v2\\Pharmacy\\wwwroot\\exports\\export.xlsx",

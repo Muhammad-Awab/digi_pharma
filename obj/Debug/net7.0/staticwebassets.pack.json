@@ -185,6 +185,10 @@
       "PackagePath": "staticwebassets\\dist\\img\\Pharmacy.jpg"
     },
     {
+      "Id": "D:\\Visual Studio Projects\\digi_Pharma\\pharmay_v1\\digipharma_v2\\Pharmacy\\wwwroot\\dist\\img\\favicon.ico",
+      "PackagePath": "staticwebassets\\dist\\img\\favicon.ico"
+    },
+    {
       "Id": "D:\\Visual Studio Projects\\digi_Pharma\\pharmay_v1\\digipharma_v2\\Pharmacy\\wwwroot\\dist\\img\\logo.png",
       "PackagePath": "staticwebassets\\dist\\img\\logo.png"
     },
@@ -223,6 +227,10 @@
     {
       "Id": "D:\\Visual Studio Projects\\digi_Pharma\\pharmay_v1\\digipharma_v2\\Pharmacy\\wwwroot\\dist\\js\\pages\\dashboard3.js",
       "PackagePath": "staticwebassets\\dist\\js\\pages\\dashboard3.js"
+    },
+    {
+      "Id": "D:\\Visual Studio Projects\\digi_Pharma\\pharmay_v1\\digipharma_v2\\Pharmacy\\wwwroot\\export.xlsx",
+      "PackagePath": "staticwebassets\\export.xlsx"
     },
     {
       "Id": "D:\\Visual Studio Projects\\digi_Pharma\\pharmay_v1\\digipharma_v2\\Pharmacy\\wwwroot\\exports\\export.xlsx",

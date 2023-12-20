@@ -11,8 +11,6 @@
           "AWSSDK.S3": "3.7.304.9",
           "Blazored.Toast": "4.1.0",
           "ChartJs.Blazor.Fork": "2.0.2",
-          "ClassLibraryDAL": "1.0.0",
-          "ClassLibraryEnt": "1.0.0",
           "ClosedXML": "0.102.1",
           "EPPlus": "7.0.4",
           "IronXL.Excel": "2023.12.19",
@@ -1265,20 +1263,6 @@
             "fileVersion": "1.5.2.0"
           }
         }
-      },
-      "ClassLibraryDAL/1.0.0": {
-        "dependencies": {
-          "ClassLibraryEnt": "1.0.0",
-          "System.Data.SqlClient": "4.8.5"
-        },
-        "runtime": {
-          "ClassLibraryDAL.dll": {}
-        }
-      },
-      "ClassLibraryEnt/1.0.0": {
-        "runtime": {
-          "ClassLibraryEnt.dll": {}
-        }
       }
     }
   },
@@ -2253,16 +2237,6 @@
       "sha512": "sha512-8tnUCmMbn6c/HGuHFyq1sulHym8YReTKDNXFFQk0U8nldNx6RGrwRvLh0+aQjEc7YoC3Q1ztH1npLt7dClKqjw==",
       "path": "xlparser/1.5.2",
       "hashPath": "xlparser.1.5.2.nupkg.sha512"
-    },
-    "ClassLibraryDAL/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "ClassLibraryEnt/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
     }
   }
 }

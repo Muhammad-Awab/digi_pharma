@@ -25,6 +25,7 @@
   </ItemGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <Import Project="$(NuGetPackageRoot)sixlabors.imagesharp\3.0.2\build\SixLabors.ImageSharp.props" Condition="Exists('$(NuGetPackageRoot)sixlabors.imagesharp\3.0.2\build\SixLabors.ImageSharp.props')" />
+    <Import Project="$(NuGetPackageRoot)neodynamic.blazor.jsprintmanager\6.0.23.823\buildTransitive\Neodynamic.Blazor.JSPrintManager.props" Condition="Exists('$(NuGetPackageRoot)neodynamic.blazor.jsprintmanager\6.0.23.823\buildTransitive\Neodynamic.Blazor.JSPrintManager.props')" />
     <Import Project="$(NuGetPackageRoot)chartjs.blazor.fork\2.0.2\buildTransitive\ChartJs.Blazor.Fork.props" Condition="Exists('$(NuGetPackageRoot)chartjs.blazor.fork\2.0.2\buildTransitive\ChartJs.Blazor.Fork.props')" />
     <Import Project="$(NuGetPackageRoot)blazored.toast\4.1.0\buildTransitive\Blazored.Toast.props" Condition="Exists('$(NuGetPackageRoot)blazored.toast\4.1.0\buildTransitive\Blazored.Toast.props')" />
   </ImportGroup>

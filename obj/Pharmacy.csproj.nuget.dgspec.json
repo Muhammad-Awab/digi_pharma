@@ -69,6 +69,14 @@
               "target": "Package",
               "version": "[2023.12.19, )"
             },
+            "Microsoft.AspNetCore.Mvc.DataAnnotations": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Neodynamic.Blazor.JSPrintManager": {
+              "target": "Package",
+              "version": "[6.0.23.823, )"
+            },
             "System.Data.SqlClient": {
               "target": "Package",
               "version": "[4.8.5, )"

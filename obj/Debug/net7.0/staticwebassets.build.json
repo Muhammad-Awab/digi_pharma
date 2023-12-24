@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "B3gA3+muAm9eY4DTZbtkSY4weR1XKqHyUXykbHKipuk=",
+  "Hash": "9rbO8wJdRigOvZ/yMwG4ZcVQOilYCTbG0nhJ2Mngajw=",
   "Source": "Pharmacy",
   "BasePath": "_content/Pharmacy",
   "Mode": "Default",
@@ -72,6 +72,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\dell\\.nuget\\packages\\chartjs.blazor.fork\\2.0.2\\staticwebassets\\ChartJsBlazorInterop.js"
+    },
+    {
+      "Identity": "C:\\Users\\dell\\.nuget\\packages\\neodynamic.blazor.jsprintmanager\\6.0.23.823\\staticwebassets\\JSPrintManagerBlazor.js",
+      "SourceId": "Neodynamic.Blazor.JSPrintManager",
+      "SourceType": "Package",
+      "ContentRoot": "C:\\Users\\dell\\.nuget\\packages\\neodynamic.blazor.jsprintmanager\\6.0.23.823\\staticwebassets\\",
+      "BasePath": "_content/Neodynamic.Blazor.JSPrintManager",
+      "RelativePath": "JSPrintManagerBlazor.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\dell\\.nuget\\packages\\neodynamic.blazor.jsprintmanager\\6.0.23.823\\staticwebassets\\JSPrintManagerBlazor.js"
     },
     {
       "Identity": "D:\\Visual Studio Projects\\digi_Pharma - Copy\\digipharma_v2\\Pharmacy\\obj\\Debug\\net7.0\\scopedcss\\bundle\\Pharmacy.styles.css",

@@ -94,8 +94,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWVkaWNpbmVTaG9ydGFnZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Pages/PageNotFound.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGFnZU5vdEZvdW5kLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Pages/Pagination.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGFnaW5hdGlvbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Pages/PaginationMedicineRecord.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGFnaW5hdGlvbk1lZGljaW5lUmVjb3JkLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Pages/Paging.razor]
@@ -108,6 +116,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Pages/PointOfSale.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUG9pbnRPZlNhbGUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Pages/PrinterComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpbnRlckNvbXBvbmVudC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Visual Studio Projects/digi_Pharma - Copy/digipharma_v2/Pharmacy/Pages/SalesRecord.razor]

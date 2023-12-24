@@ -102,8 +102,7 @@ namespace ClassLibraryDAL
             return new DataTable();
 
         }
-
-        public static EntBilling GetBillingRecordById(int BillingId, int fk_PharmacyId)
+        public static EntBilling GetBillingRecordById(int BillingId,int fk_PharmacyId)
         {
             EntBilling ee = new EntBilling();
 
@@ -146,18 +145,17 @@ namespace ClassLibraryDAL
                     ee.MedCounts = int.Parse(sdr["Medicine_Record"].ToString());
                     ee.SalesCounts = int.Parse(sdr["Billing_Record"].ToString());
                     ee.UserCounts = int.Parse(sdr["User_Record"].ToString());
-
+                  
                 }
                 con.Close();
 
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Exception Occurred: {ex.Message}");
+               Console.WriteLine($"Exception Occurred: {ex.Message}");
             }
             return ee;
         }
-
         public static EntRegistration GetUserByName(string? username)
         {
             EntRegistration ee = new EntRegistration();
@@ -216,7 +214,6 @@ namespace ClassLibraryDAL
                     ee.Role = sdr["Role"].ToString();
                     ee.UserImg = sdr["UserImg"].ToString();
 
-
                 }
                 con.Close();
             }
@@ -227,5 +224,6 @@ namespace ClassLibraryDAL
             return ee;
 
         }
+
     }
 }

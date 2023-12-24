@@ -8,7 +8,7 @@
 
     <div class="card-body">
 
-        <div class="d-flex gap-2">
+        <div class="d-flex gap-2 mb-4">
 
             <input tabindex="0" class="form-control w-50" type="text" @bind="searchTerm" @oninput="SearchTextChanged" id="myInput" placeholder="Search for names.." title="Type in a name">
             <!--<button type="button" class="btn btn-primary" @onclick="CreatePagingInfo">Search</button>-->
@@ -31,30 +31,30 @@
 
                         @foreach (DataRow row in pagedData)
                         {
-                            @if ((int)@row["Stock"] == 0)
+                            @if ((int)row["Stock"] == 0)
                             {
-                                <tr tabindex="1" disabled @onclick="@(()=>OpenQuantityDialog((int)@row["pk_MedId"],@row["Name"].ToString(),@row["UnitPrice"].ToString()))">
-                                    <td style="background-color:mediumvioletred;">@row["pk_MedId"]</td>
-                                    <td style="background-color:orangered;">@row["Name"]</td>
-                                    <td style="background-color:red;">@row["UnitPrice"]</td>
-                                    <td style="background-color:red;">@row["Location"]</td>
-                                    <td style="background-color:red;">@row["Stock"]</td>
-
-                                </tr>
-                            }
-                            else
-                            {
-                                <tr tabindex="2" @onclick="@(()=>OpenQuantityDialog((int)@row["pk_MedId"],@row["Name"].ToString(),@row["UnitPrice"].ToString()))">
+                                <tr style="background-color: red !important;">
                                     <td>@row["pk_MedId"]</td>
                                     <td>@row["Name"]</td>
                                     <td>@row["UnitPrice"]</td>
                                     <td>@row["Location"]</td>
                                     <td>@row["Stock"]</td>
-
                                 </tr>
                             }
-
+                            else
+                            {
+                                <tr style="cursor: pointer; background-color: orangered;" @onclick="@(()=>OpenQuantityDialog((int)row["pk_MedId"], row["Name"].ToString(), row["UnitPrice"].ToString()))">
+                                    <td>@row["pk_MedId"]</td>
+                                    <td>@row["Name"]</td>
+                                    <td>@row["UnitPrice"]</td>
+                                    <td>@row["Location"]</td>
+                                    <td>@row["Stock"]</td>
+                                </tr>
+                            }
                         }
+
+
+                        
                     </tbody>
                     <tfoot>
 
@@ -94,6 +94,7 @@
                     <tfoot>
                         <tr>
                             <td class="fw-bold ml-5">Total</td>
+                            <td></td>
                             <td class="fw-bold">@MedicineTotalQuantity </td>
                             <td class="fw-bold">@MedicineTotalprice </td>
                         </tr>
@@ -157,7 +158,7 @@
 
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-labelDiscountPrice">Discount Price (Rs)</label>
-            <input type="text" class="form-control" @bind="DiscountPrice" @bind:event="onchange"  @oninput="calculatediscountprice" id="exampleFormControlInput1" placeholder="Price ">
+            <input type="text" class="form-control" @bind="DiscountPrice" @bind:event="onchange" @oninput="calculatediscountprice" id="exampleFormControlInput1" placeholder="Price ">
         </div>
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Discount Percentage(%)</label>
@@ -179,11 +180,6 @@
 
     </div>
 </div>
-
-
-
-
-
 
 @code {
     // protected EntMedicineRecord? model { get; set; } = new EntMedicineRecord();
@@ -209,52 +205,87 @@
 
     private async Task Checkout()
     {
-        foreach (var data in modelList)
+        if (modelList.Count != 0)
         {
-            SqlParameter[] parameters = new SqlParameter[]
-             {
+
+
+            foreach (var data in modelList)
+            {
+                SqlParameter[] parameters = new SqlParameter[]
+                 {
                  new SqlParameter("@pk_POSId",data.pk_POSId),
                  new SqlParameter("@pharmacyId",v[0]),
                  new SqlParameter("@fk_BillingId",data.fk_BillingId),
                  new SqlParameter("@fk_MedId",data.fk_MedId),
                  new SqlParameter("@Quantity",data.Quantity),
-             };
-            await DALCRUD.CRUD("SP_checkout", parameters);
+                 };
+                await DALCRUD.CRUD("SP_checkout", parameters);
 
 
-            SqlParameter[] sp =
-          {
+                SqlParameter[] sp =
+              {
             new SqlParameter("@medId",data.fk_MedId),
             new SqlParameter("@quantity", data.Quantity),
-    };
-            await DALCRUD.CRUD("SP_SellMedicine", sp);
+          };
+                await DALCRUD.CRUD("SP_SellMedicine", sp);
+
+            }
+
+            await AddPointOfSale(BillingId, MedicineTotalprice);
+            await CopyToClipboard();
+            await JS.InvokeVoidAsync("alert", $"Billing Id Copied Sucessfully {BillingId}");
+
+
+            MedicineGrandTotal = MedicineTotalprice;
+            modelList.Clear();
+            MedicineTotalprice = 0;
+            MedicineTotalQuantity = 0;
+            POSId += 1;
+            Random rnd = new Random();
+            BillingId = rnd.Next();
+
+
+            StateHasChanged();
+            await OnInitializedAsync();
+        }
+        else
+        {
+            await JS.InvokeVoidAsync("alert", $"The Cart is Empty ");
 
         }
 
-        await AddPointOfSale(BillingId, MedicineTotalprice);
-        await JS.InvokeVoidAsync("alert", $"Billing Id Copied Sucessfully {BillingId}");
-       
 
-        MedicineGrandTotal = MedicineTotalprice;
-        modelList.Clear();
-        MedicineTotalprice = 0;
-        MedicineTotalQuantity = 0;
-        POSId += 1;
-        Random rnd = new Random();
-        BillingId = rnd.Next();
+    }
+    string text;
 
+    async Task ReadFromClipboard()
+    {
+        // Reading from the clipboard may be denied, so you must handle the exception
+        try
+        {
+            text = await ClipboardService.ReadTextAsync();
+        }
+        catch
+        {
+            Console.WriteLine("Cannot read from clipboard");
+        }
+    }
 
-        StateHasChanged();
-        await OnInitializedAsync();
-
-
-
+    async Task CopyToClipboard()
+    {
+        // Writing to the clipboard may be denied, so you must handle the exception
+        try
+        {
+            await ClipboardService.WriteTextAsync(BillingId.ToString());
+        }
+        catch
+        {
+            Console.WriteLine("Cannot write text to clipboard");
+        }
     }
 
 
-   
 
-   
 
 
 
@@ -351,7 +382,7 @@
     IEnumerable<DataRow> pagedData = Enumerable.Empty<DataRow>();
     [Parameter]
     public int page { get; set; } = 1;
-    int pageSize = 14; // Change this to your desired page size
+    int pageSize = 10; // Change this to your desired page size
 
     PagingInfo pagingInfo = new PagingInfo();
 
@@ -415,7 +446,7 @@
 
     public void calculatediscountprice(ChangeEventArgs e)
     {
-        if(e.Value.ToString() == "")
+        if (e.Value.ToString() == "")
         {
             DiscountPrice = 0;
         }
@@ -440,12 +471,12 @@
 
             DiscountPerc = int.Parse(e.Value.ToString());
             DiscountPrice = (DiscountPerc * (MedicineTotalprice)) / 100;
-            
+
             MedicineGrandTotal = MedicineTotalprice - DiscountPrice;
 
         }
-      
-        
+
+
     }
 
 
